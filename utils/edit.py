@@ -47,6 +47,7 @@ def show_info(df):
     }).reset_index(drop=True)
     st.write(info_df)
 
+
 def show_missing_values(df):
     st.subheader("🔍 Missing Values")
     missing_df = df.isnull().sum().reset_index()
@@ -62,28 +63,33 @@ def show_missing_values(df):
     st.dataframe(missing_df.sort_values(by="% Missing", ascending=False))
 
     st.markdown("### 🔧 Handle Missing Values")
-    method = st.selectbox("Select a method", [
-        "Drop rows with missing values (selected columns only)",
-        "Drop rows with any missing value (entire row)",
-        "Drop columns with missing values",
-        "Fill with Mean",
-        "Fill with Median",
-        "Fill with Mode",
-        "Fill with Constant value",
-        "Forward Fill (ffill)",
-        "Backward Fill (bfill)",
-        "Interpolate"
-    ])
+    method = st.selectbox(
+        "Select a method",
+        [
+            "Drop rows with missing values (selected columns only)",
+            "Drop rows with any missing value (entire row)",
+            "Drop columns with missing values",
+            "Fill with Mean",
+            "Fill with Median",
+            "Fill with Mode",
+            "Fill with Constant value",
+            "Forward Fill (ffill)",
+            "Backward Fill (bfill)",
+            "Interpolate"
+        ],
+        key="missing_method_select"  # ✅ unique key
+    )
 
     selected_cols = st.multiselect(
         "Select columns to apply",
         options=df.columns[df.isnull().any()],
-        default=df.columns[df.isnull().any()]
+        default=df.columns[df.isnull().any()],
+        key="missing_cols_multiselect"  # ✅ unique key
     )
 
     constant = None
     if method == "Fill with Constant value":
-        constant = st.text_input("Enter constant value:")
+        constant = st.text_input("Enter constant value:", key="missing_constant_input")  # ✅ unique key
 
     if st.button("Apply", key="apply_missing_btn"):
         if method != "Drop rows with any missing value (entire row)" and not selected_cols:
@@ -94,44 +100,36 @@ def show_missing_values(df):
 
         if method == "Drop rows with missing values (selected columns only)":
             updated_df.dropna(subset=selected_cols, inplace=True)
-
         elif method == "Drop rows with any missing value (entire row)":
             updated_df.dropna(inplace=True)
-
         elif method == "Drop columns with missing values":
             updated_df.drop(columns=selected_cols, inplace=True)
-
         elif method == "Fill with Mean":
             for col in selected_cols:
                 updated_df[col] = updated_df[col].fillna(updated_df[col].mean())
-
         elif method == "Fill with Median":
             for col in selected_cols:
                 updated_df[col] = updated_df[col].fillna(updated_df[col].median())
-
         elif method == "Fill with Mode":
             for col in selected_cols:
                 updated_df[col] = updated_df[col].fillna(updated_df[col].mode()[0])
-
         elif method == "Fill with Constant value":
             if constant is None or constant == "":
                 st.warning("⚠️ Please enter a constant value.")
                 return
             for col in selected_cols:
                 updated_df[col] = updated_df[col].fillna(constant)
-
         elif method == "Forward Fill (ffill)":
             updated_df[selected_cols] = updated_df[selected_cols].fillna(method='ffill')
-
         elif method == "Backward Fill (bfill)":
             updated_df[selected_cols] = updated_df[selected_cols].fillna(method='bfill')
-
         elif method == "Interpolate":
             for col in selected_cols:
                 updated_df[col] = updated_df[col].interpolate()
 
         st.session_state.df = updated_df
         st.success("✅ Missing value handling applied successfully.")
+
 
 def show_duplicates(df):
     st.subheader("👥 Duplicated Rows")

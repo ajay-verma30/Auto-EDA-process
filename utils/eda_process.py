@@ -215,11 +215,11 @@ def generate_overall_eda_summary(df):
 @st.cache_data
 def generate_plot(df_to_plot, col, plot_type):
     """Generates and returns a plot figure with professional styling."""
-    # Set professional matplotlib style
+    
     plt.style.use('seaborn-v0_8-whitegrid')
     fig, ax = plt.subplots(figsize=(10, 6))
     
-    # Color palette
+    
     colors = ['#667eea', '#764ba2', '#f093fb', '#f5576c', '#4facfe', '#00f2fe']
     
     if pd.api.types.is_numeric_dtype(df_to_plot[col]):
@@ -232,7 +232,7 @@ def generate_plot(df_to_plot, col, plot_type):
         elif plot_type == 'Line Plot':
             df_to_plot[col].plot(ax=ax, color=colors[2], linewidth=2)
             ax.set_title(f"Line Plot of {col}", fontsize=16, fontweight='bold', pad=20)
-    else: # Categorical
+    else: 
         if plot_type == 'Bar Chart':
             value_counts = df_to_plot[col].value_counts()
             bars = ax.bar(range(len(value_counts)), value_counts.values, color=colors[:len(value_counts)])
@@ -240,7 +240,7 @@ def generate_plot(df_to_plot, col, plot_type):
             ax.set_xticklabels(value_counts.index, rotation=45, ha='right')
             ax.set_title(f"Distribution of {col}", fontsize=16, fontweight='bold', pad=20)
             
-            # Add value labels on bars
+            
             for bar in bars:
                 height = bar.get_height()
                 ax.text(bar.get_x() + bar.get_width()/2., height,
@@ -255,7 +255,7 @@ def generate_plot(df_to_plot, col, plot_type):
             ax.set_title(f"Distribution of {col}", fontsize=16, fontweight='bold', pad=20)
             ax.axis('equal')
 
-    # Professional styling
+    
     ax.grid(True, alpha=0.3)
     ax.set_xlabel(ax.get_xlabel(), fontsize=12, fontweight='medium')
     ax.set_ylabel(ax.get_ylabel(), fontsize=12, fontweight='medium')
@@ -346,7 +346,7 @@ def create_pdf_report(df, overall_summary, plot_data_for_report):
 def display_dataset_overview(df):
     """Display professional dataset overview with metrics cards (fixed responsive layout)."""
     
-    # Inject CSS once
+    
     st.markdown("""
     <style>
     .metric-card {
@@ -382,13 +382,13 @@ def display_dataset_overview(df):
 
     st.markdown('<div class="section-header"><h3>📊 Dataset Overview</h3></div>', unsafe_allow_html=True)
     
-    # Calculate metrics
+   
     total_rows = f"{df.shape[0]:,}"
     total_cols = df.shape[1]
     numeric_cols = len(df.select_dtypes(include=['number']).columns)
     categorical_cols = len(df.select_dtypes(include=['object', 'category']).columns)
 
-    # Layout with 4 columns
+    
     col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.markdown(f"""
@@ -419,7 +419,7 @@ def display_dataset_overview(df):
         </div>
         """, unsafe_allow_html=True)
 
-    # Extra details in expander
+    
     with st.expander("📋 View Data Types", expanded=False):
         dtype_df = pd.DataFrame({
             'Column': df.columns,
@@ -483,7 +483,7 @@ def eda_section(df):
         </div>
         """, unsafe_allow_html=True)
 
-    # Univariate Analysis Section
+    
     st.markdown('<div class="section-header"><h3>📈 Univariate Analysis</h3></div>', 
                 unsafe_allow_html=True)
     
@@ -514,7 +514,7 @@ def eda_section(df):
     plot_key = f"{selected_col}_{plot_type.replace(' ', '_').lower()}"
     fig_path = f"Figures/{plot_key}.png"
 
-    # Display statistics
+    
     col1, col2 = st.columns(2)
     
     if pd.api.types.is_numeric_dtype(df[selected_col]):
@@ -543,13 +543,13 @@ def eda_section(df):
             st.metric("Unique Values", df[selected_col].nunique())
             st.metric("Most Common", df[selected_col].mode().iloc[0] if len(df[selected_col].mode()) > 0 else "N/A")
 
-    # Generate and display plot
+    
     fig = generate_plot(df_sampled, selected_col, plot_type)
     fig.savefig(fig_path, dpi=300, bbox_inches='tight')
     st.pyplot(fig, use_container_width=True)
     plt.close(fig)
 
-    # AI Analysis button
+    
     col1, col2 = st.columns([1, 3])
     with col1:
         if st.button(f"🤖 Generate AI Insights", key=f"ai_univariate_button_{plot_key}"):
@@ -563,7 +563,7 @@ def eda_section(df):
                 st.session_state.plot_summaries_and_paths[plot_key] = {'path': fig_path, 'summary': ai_text}
                 st.rerun()
 
-    # Display AI insights
+    
     if plot_key in st.session_state.plot_summaries_and_paths:
         st.markdown("""
         <div class="success-box">
@@ -572,7 +572,7 @@ def eda_section(df):
         """, unsafe_allow_html=True)
         st.info(st.session_state.plot_summaries_and_paths[plot_key]['summary'])
 
-    # Bivariate Analysis
+    
     numeric_cols = df.select_dtypes(include=["float", "int"]).columns.tolist()
 
     if len(numeric_cols) >= 2:
@@ -598,7 +598,7 @@ def eda_section(df):
                 y_axis = st.selectbox("📊 Y-axis variable", y_axis_options, key="y_axis")
 
             if x_axis and y_axis:
-                # Calculate correlation
+                
                 correlation = df[[x_axis, y_axis]].corr().iloc[0, 1]
                 
                 col1, col2, col3 = st.columns(3)
@@ -640,7 +640,6 @@ def eda_section(df):
                     }
                     st.rerun()
         
-        # Display bivariate AI insights
         if bivariate_plot_key in st.session_state.plot_summaries_and_paths:
             st.markdown("""
             <div class="success-box">
@@ -655,7 +654,7 @@ def eda_section(df):
         </div>
         """, unsafe_allow_html=True)
 
-    # Report Generation Section
+    
     st.markdown('<div class="section-header"><h3>📄 Professional Report Generation</h3></div>', 
                 unsafe_allow_html=True)
 
@@ -692,7 +691,7 @@ def eda_section(df):
             </div>
             """, unsafe_allow_html=True)
     
-    # Display overall summary
+    
     if st.session_state.overall_eda_summary:
         st.markdown("""
         <div class="success-box">

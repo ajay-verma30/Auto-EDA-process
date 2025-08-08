@@ -77,19 +77,19 @@ def show_missing_values(df):
             "Backward Fill (bfill)",
             "Interpolate"
         ],
-        key="missing_method_select"  # ✅ unique key
+        key="missing_method_select"  
     )
 
     selected_cols = st.multiselect(
         "Select columns to apply",
         options=df.columns[df.isnull().any()],
         default=df.columns[df.isnull().any()],
-        key="missing_cols_multiselect"  # ✅ unique key
+        key="missing_cols_multiselect"  
     )
 
     constant = None
     if method == "Fill with Constant value":
-        constant = st.text_input("Enter constant value:", key="missing_constant_input")  # ✅ unique key
+        constant = st.text_input("Enter constant value:", key="missing_constant_input") 
 
     if st.button("Apply", key="apply_missing_btn"):
         if method != "Drop rows with any missing value (entire row)" and not selected_cols:

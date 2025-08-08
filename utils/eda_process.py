@@ -449,14 +449,23 @@ def eda_section(df):
     
     with st.sidebar:
         st.markdown("### ⚙️ Analysis Controls")
+    
+        if len(df) >= 100:
+            min_val = 100
+            max_val = len(df)
+        else:
+            min_val = 1
+            max_val = len(df)
+    
         sample_size = st.slider(
             "Sample Size (for performance)",
-            min_value=min(100, len(df)),  # agar dataset chhota ho to safe
-            max_value=len(df),
-            value=min(len(df), 5000),
-            step=500,
+            min_value=min_val,
+            max_value=max_val,
+            value=min(max_val, 5000),
+            step=1 if max_val < 500 else 500,
             help="Reduce sample size for faster plotting with large datasets"
-        )   
+        )
+   
         
         st.markdown("### 🎨 Visualization Theme")
         plot_style = st.selectbox(

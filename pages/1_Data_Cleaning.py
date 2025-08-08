@@ -1,4 +1,10 @@
 import streamlit as st
+st.set_page_config(
+    page_title="Professional EDA Dashboard",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 import os
 from pathlib import Path
 import pandas as pd
@@ -12,7 +18,15 @@ from utils.edit import (
     show_outliers,
     show_data_standardization
 )
-from utils.eda_process import eda_section
+from utils.eda_process import eda_section # This file should now NOT contain st.set_page_config()
+
+# # --- This must be the first Streamlit command! ---
+# st.set_page_config(
+#     page_title="Data Cleaning & Analysis",
+#     layout="wide",
+#     initial_sidebar_state="expanded"
+# )
+# # --------------------------------------------------
 
 st.title("🧼 Data Upload & Cleaning")
 
@@ -67,7 +81,6 @@ else:
         show_outliers(df)
     
     with tab6:
-
         st.subheader("### Export Cleaned Data")
         
         @st.cache_data

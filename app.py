@@ -300,63 +300,7 @@ if st.button("🎯 Start Your Data Journey", key="main_cta"):
     st.switch_page("pages/1_Data_Cleaning.py")
 st.markdown('</div>', unsafe_allow_html=True)
 
-st.markdown("""
-    <div class="feature-grid">
-        <div class="feature-card">
-            <div class="feature-icon">📈</div>
-            <div class="feature-title">Smart Visualizations</div>
-            <div class="feature-description">
-                Automatically generate beautiful charts, plots, and graphs that reveal 
-                hidden patterns and insights in your data with zero coding required.
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">🧠</div>
-            <div class="feature-title">AI-Powered Insights</div>
-            <div class="feature-description">
-                Our intelligent algorithms detect correlations, outliers, and trends 
-                that traditional analysis might miss, powered by cutting-edge ML.
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">⚡</div>
-            <div class="feature-title">Lightning Fast</div>
-            <div class="feature-description">
-                Process thousands of rows in seconds. Upload your CSV, Excel, or JSON 
-                files and get instant comprehensive analysis results.
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">📊</div>
-            <div class="feature-title">Comprehensive Reports</div>
-            <div class="feature-description">
-                Generate professional-grade analysis reports with statistical summaries, 
-                data quality assessments, and actionable recommendations.
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">🔒</div>
-            <div class="feature-title">Secure & Private</div>
-            <div class="feature-description">
-                Your data stays completely private and secure. We use industry-standard 
-                encryption and never store your sensitive information.
-            </div>
-        </div>
-        
-        <div class="feature-card">
-            <div class="feature-icon">🎨</div>
-            <div class="feature-title">Fully Customizable</div>
-            <div class="feature-description">
-                Tailor every aspect of your analysis with flexible parameters, 
-                custom color schemes, and personalized visualization preferences.
-            </div>
-        </div>
-    </div>
-""", unsafe_allow_html=True)
+
 
 st.markdown("""
     <div class="stats-container">

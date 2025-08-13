@@ -16,15 +16,23 @@ st.markdown("""
         background: linear-gradient(135deg, #0d1117, #151a21); /* Dark gradient background */
         font-family: 'Inter', sans-serif;
         color: #f0f6fc; /* Light font color for readability */
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
-    /* Main container centering */
-    .main > div {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+    /* Center container for all content */
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        text-align: center;
+        padding: 2rem;
     }
     
     /* Hero Section */
@@ -52,19 +60,21 @@ st.markdown("""
     header {visibility: hidden;}
     
     /* Button container centering - more specific selectors */
-    div[data-testid="column"] {
+    .stApp > div > div > div > div {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
+        min-height: 100vh;
     }
     
     /* Button Styling with more specific targeting */
     .stButton {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        margin: 2rem 0;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin: 2rem 0 !important;
     }
     
     .stButton > button {
@@ -109,10 +119,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("""
-    <div class="hero-title">🚀 Auto EDA</div>
-    <div class="hero-subtitle">
-        Transform your raw data into powerful insights with our revolutionary 
-        one-click automated exploratory data analysis platform
+    <div class="center-container">
+        <div class="hero-title">🚀 Auto EDA</div>
+        <div class="hero-subtitle">
+            Transform your raw data into powerful insights with our revolutionary 
+            one-click automated exploratory data analysis platform
+        </div>
     </div>
 """, unsafe_allow_html=True)
 

@@ -1,6 +1,5 @@
 import streamlit as st
 
-# Configure the Streamlit page
 st.set_page_config(
     page_title="Auto EDA - Transform Your Data",
     page_icon="🚀",
@@ -8,7 +7,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Custom CSS to style the app, header, and button
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -83,7 +81,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Main content
 st.markdown("""
     <div class="hero-title">🚀 Auto EDA</div>
     <div class="hero-subtitle">
@@ -92,7 +89,6 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# CTA button section
 st.markdown('<div style="text-align: center; margin: 2rem 0;">', unsafe_allow_html=True)
 if st.button("🎯 Start Your Data Journey", key="main_cta"):
     st.switch_page("pages/1_Data_Cleaning.py")

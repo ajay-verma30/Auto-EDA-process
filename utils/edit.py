@@ -12,22 +12,36 @@ def set_active_tab(tab_name):
 def load_file(file_path):
     try:
         ext = os.path.splitext(file_path)[1].lower()
+        encodings_to_try = ["utf-8", "ISO-8859-1", "cp1252"]
+
         if ext == ".csv":
-            try:
-                df = pd.read_csv(file_path, encoding='utf-8')
-            except UnicodeDecodeError:
+            # Try multiple encodings and auto-detect delimiters
+            last_exception = None
+            for enc in encodings_to_try:
                 try:
-                    df = pd.read_csv(file_path, encoding="ISO-8859-1")
-                except UnicodeDecodeError:
-                    df = pd.read_csv(file_path, encoding="cp1252")
+                    df = pd.read_csv(
+                        file_path,
+                        encoding=enc,
+                        sep=None,              # Auto-detect separator
+                        engine="python",       # More forgiving parser
+                        on_bad_lines="skip"    # Skip malformed rows
+                    )
+                    return df
+                except Exception as e:
+                    last_exception = e
+            raise last_exception
+
         elif ext in [".xlsx", ".xls"]:
             df = pd.read_excel(file_path)
+            return df
+
         else:
             raise ValueError("Unsupported File Format.")
-        return df
+
     except Exception as e:
         st.error(f"Error loading file: {e}")
         return None
+
 
 def preview_data(df):
     st.subheader("🧾 Data Preview")
@@ -46,7 +60,6 @@ def show_info(df):
         "Dtype": df.dtypes.astype(str)
     }).reset_index(drop=True)
     st.write(info_df)
-
 
 def show_missing_values(df):
     st.subheader("🔍 Missing Values")
@@ -130,7 +143,6 @@ def show_missing_values(df):
         st.session_state.df = updated_df
         st.success("✅ Missing value handling applied successfully.")
 
-
 def show_duplicates(df):
     st.subheader("👥 Duplicated Rows")
     duplicates_count = df.duplicated().sum()
@@ -209,7 +221,6 @@ def show_outliers(df):
         st.session_state.df = updated_df
         st.success("✅ Outlier handling applied.")
         st.session_state.active_tab = "Outliers"
-
 
 tabs = ["Data Overview", "Missing Values", "Duplicates", "Standardize", "Outliers"]
 tab_objects = st.tabs(tabs)

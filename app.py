@@ -7,7 +7,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# --- Custom CSS for Styling ---
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -30,12 +29,18 @@ st.markdown("""
     text-align: center;
 }
 
-/* Hide Streamlit's default headers/footers */
+.stButton{
+    margin-top: 20px;
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+}
+            
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
 header {visibility: hidden;}
 
-/* Custom title styling */
 .title-container {
     display: flex;
     flex-direction: column;
@@ -55,7 +60,7 @@ header {visibility: hidden;}
     -webkit-text-fill-color: transparent;
 }
 
-/* Streamlit button styling */
+
 .stButton > button {
     background: linear-gradient(45deg, var(--button-start), var(--button-end));
     color: var(--dark-bg);
@@ -86,15 +91,10 @@ header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
-# --- UI Layout ---
-# Use columns for centering the content
 col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
-    # Title element with custom class
     st.markdown("<div class='title-container'><h1 class='custom-title'>Auto EDA</h1></div>", unsafe_allow_html=True)
-
-    # Button element with the custom styling from the CSS
     if st.button("🎯 Start Your Data Journey"):
-        st.write("Button clicked!") # Replace with your page switch logic
+        st.write("Button clicked!") 
 

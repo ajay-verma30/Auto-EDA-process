@@ -16,14 +16,15 @@ st.markdown("""
         background: linear-gradient(135deg, #0d1117, #151a21); /* Dark gradient background */
         font-family: 'Inter', sans-serif;
         color: #f0f6fc; /* Light font color for readability */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    }
+    
+    /* Main container centering */
+    .main > div {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
         text-align: center;
-        height: 100vh;
-        width: 100vw;
-        padding: 2rem;
     }
     
     /* Hero Section */
@@ -50,23 +51,49 @@ st.markdown("""
     footer {visibility: hidden;}
     header {visibility: hidden;}
     
-    /* Button Styling */
+    /* Button container centering - more specific selectors */
+    div[data-testid="column"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    /* Button Styling with more specific targeting */
+    .stButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 2rem 0;
+    }
+    
     .stButton > button {
-        background: linear-gradient(45deg, #ff6b6b, #ffa726);
-        color: #0d1117; 
-        border: none;
-        border-radius: 25px;
-        padding: 0.75rem 2rem;
-        font-size: 1.1rem;
-        font-weight: 600;
-        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
-        cursor: pointer;
-        transition: all 0.3s ease;
+        background: linear-gradient(45deg, #ff6b6b, #ffa726) !important;
+        color: #0d1117 !important; 
+        border: none !important;
+        border-radius: 25px !important;
+        padding: 0.75rem 2rem !important;
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3) !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        margin: 0 auto !important;
+        display: block !important;
     }
     
     .stButton > button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4);
+        transform: translateY(-3px) !important;
+        box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4) !important;
+    }
+    
+    /* Force center alignment for button container */
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 2rem 0;
     }
 
     /* Mobile responsiveness */
@@ -89,7 +116,8 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div style="text-align: center; margin: 2rem 0;">', unsafe_allow_html=True)
-if st.button("🎯 Start Your Data Journey", key="main_cta"):
-    st.switch_page("pages/1_Data_Cleaning.py")
-st.markdown('</div>', unsafe_allow_html=True)
+# Use columns to ensure centering
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    if st.button("🎯 Start Your Data Journey", key="main_cta"):
+        st.switch_page("pages/1_Data_Cleaning.py")

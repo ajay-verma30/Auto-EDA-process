@@ -1,123 +1,141 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Auto EDA - Transform Your Data",
+    page_title="Data Analysis Journey",
     page_icon="🚀",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-    /* Overall App Styling */
-    .stApp {
-        background: linear-gradient(135deg, #0d1117, #151a21); /* Dark gradient background */
-        font-family: 'Inter', sans-serif;
-        color: #f0f6fc; /* Light font color for readability */
-    }
-    
-    /* Main container centering */
-    .main > div {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
+    .main-header {
         text-align: center;
-    }
-    
-    /* Hero Section */
-    .hero-title {
-        font-size: 4rem;
-        font-weight: 800;
-        color: #f0f6fc;
-        text-align: center;
-        margin-bottom: 1rem;
-        text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    }
-    
-    .hero-subtitle {
-        font-size: 1.5rem;
-        color: rgba(255, 255, 255, 0.9);
-        text-align: center;
+        padding: 2rem 0;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 10px;
         margin-bottom: 2rem;
-        line-height: 1.6;
-        font-weight: 300;
     }
     
-    /* Hide Streamlit default elements */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    
-    /* Button container centering - more specific selectors */
-    div[data-testid="column"] {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    /* Button Styling with more specific targeting */
-    .stButton {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    .welcome-container {
+        text-align: center;
+        padding: 3rem 2rem;
+        background-color: #f8f9fa;
+        border-radius: 15px;
         margin: 2rem 0;
     }
     
-    .stButton > button {
-        background: linear-gradient(45deg, #ff6b6b, #ffa726) !important;
-        color: #0d1117 !important; 
-        border: none !important;
-        border-radius: 25px !important;
-        padding: 0.75rem 2rem !important;
-        font-size: 1.1rem !important;
-        font-weight: 600 !important;
-        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3) !important;
-        cursor: pointer !important;
-        transition: all 0.3s ease !important;
-        margin: 0 auto !important;
-        display: block !important;
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 12px 35px rgba(255, 107, 107, 0.4) !important;
-    }
-    
-    /* Force center alignment for button container */
-    .button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
+    .journey-button {
+        background: linear-gradient(45deg, #667eea, #764ba2);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 25px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
         margin: 2rem 0;
     }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-        .hero-title {
-            font-size: 2.5rem;
-        }
-        .hero-subtitle {
-            font-size: 1.2rem;
-        }
+    
+    .feature-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin: 1rem 0;
+        border-left: 4px solid #667eea;
+    }
+    
+    .step-number {
+        background: #667eea;
+        color: white;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1rem;
+        font-weight: bold;
     }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-    <div class="hero-title">🚀 Auto EDA</div>
-    <div class="hero-subtitle">
-        Transform your raw data into powerful insights with our revolutionary 
-        one-click automated exploratory data analysis platform
+    <div class="main-header">
+        <h1>🚀 Welcome to Your Data Analysis Journey</h1>
+        <p>Transform raw data into meaningful insights</p>
     </div>
 """, unsafe_allow_html=True)
 
-# Use columns to ensure centering
-col1, col2, col3 = st.columns([1, 1, 1])
+st.markdown("""
+    <div class="welcome-container">
+        <h2>Ready to Explore Your Data?</h2>
+        <p style="font-size: 18px; color: #666; margin-bottom: 2rem;">
+            Embark on a comprehensive data analysis journey that will take you from raw data 
+            to actionable insights through systematic cleaning and exploratory analysis.
+        </p>
+    </div>
+""", unsafe_allow_html=True)
+
+
+st.markdown("## 📋 Your Analysis Journey")
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+        <div class="feature-card">
+            <h3><span class="step-number">1</span>Data Cleaning</h3>
+            <p>Clean and preprocess your data by handling missing values, removing duplicates, 
+            and ensuring data quality for accurate analysis.</p>
+            <ul>
+                <li>Handle missing values</li>
+                <li>Remove duplicates</li>
+                <li>Data type conversions</li>
+                <li>Outlier detection</li>
+            </ul>
+        </div>
+    """, unsafe_allow_html=True)
+
 with col2:
-    if st.button("🎯 Start Your Data Journey", key="main_cta"):
+    st.markdown("""
+        <div class="feature-card">
+            <h3><span class="step-number">2</span>Exploratory Data Analysis</h3>
+            <p>Discover patterns, relationships, and insights in your cleaned data through 
+            comprehensive statistical analysis and visualizations.</p>
+            <ul>
+                <li>Statistical summaries</li>
+                <li>Data visualizations</li>
+                <li>Correlation analysis</li>
+                <li>Pattern discovery</li>
+            </ul>
+        </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    st.markdown("### Ready to begin?")
+    
+    if st.button("🚀 Start Your Journey", key="start_journey", use_container_width=True):
         st.switch_page("pages/1_Data_Cleaning.py")
+    
+    st.markdown("""
+        <p style="text-align: center; color: #666; margin-top: 1rem;">
+            Click the button above to begin with data cleaning
+        </p>
+    """, unsafe_allow_html=True)
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("---")
+st.markdown("""
+    <div style="text-align: center; color: #666; padding: 1rem;">
+        <p>💡 <strong>Tip:</strong> Make sure your data is ready for analysis. 
+        The journey becomes more meaningful with quality data!</p>
+    </div>
+""", unsafe_allow_html=True)

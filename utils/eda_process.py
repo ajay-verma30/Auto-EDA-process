@@ -112,13 +112,16 @@ st.markdown("""
     .stButton > button {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        border: none;
+        border: 2px solid black !important;
         border-radius: 8px;
         padding: 0.75rem 2rem;
         font-weight: 600;
         transition: all 0.3s ease;
     }
-    
+  
+    button{
+          border: 2px solid black !important;
+              }
     .stButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
@@ -490,9 +493,10 @@ def eda_section(df):
     col1, col2 = st.columns([2, 1])
     
     with col1:
+        valid_cols = [col for col in df.columns if df[col].nunique() < len(df)]
         selected_col = st.selectbox(
             "🔍 Select column for analysis",
-            df.columns,
+            valid_cols,
             key="univariate_col",
             help="Choose a column to analyze its distribution"
         )

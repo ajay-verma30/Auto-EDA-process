@@ -349,7 +349,7 @@ def create_pdf_report(df, overall_summary, plot_data_for_report):
     for plot_info in plot_data_for_report:
         pdf.add_image_and_summary(plot_info['path'], plot_info['summary'])
 
-    return pdf.output(dest='S')
+    return pdf.output(dest='S').encode("latin1")
 
 def display_dataset_overview(df):
     """Display professional dataset overview with metrics cards (fixed responsive layout)."""
@@ -701,7 +701,7 @@ def eda_section(df):
                     )
                     st.download_button(
                         label="📥 Download PDF Report",
-                        data=pdf_output.encode("latin1"),
+                        data=pdf_output,
                         file_name="professional_eda_report.pdf",
                         mime="application/pdf"
                     )

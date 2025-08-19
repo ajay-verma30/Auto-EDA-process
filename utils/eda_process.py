@@ -444,6 +444,18 @@ def eda_section(df):
         <p>AI-Powered Exploratory Data Analysis</p>
     </div>
     """, unsafe_allow_html=True)
+
+    def sanitize_dataframe_for_pdf(df):
+        df_sanitized = df.copy()
+        
+        for col in df_sanitized.columns:
+            if pd.api.types.is_string_dtype(df_sanitized[col]):
+                df_sanitized[col] = df_sanitized[col].apply(
+                    lambda x: x.encode('ascii', 'ignore').decode('ascii') if isinstance(x, str) else x
+                )
+        return df_sanitized
+
+    df = sanitize_dataframe_for_pdf(df)
     
     if not os.path.exists("Figures"):
         os.makedirs("Figures")

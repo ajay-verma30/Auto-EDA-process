@@ -5,7 +5,7 @@ import pandas as pd
 import os
 import google.generativeai as genai
 from PIL import Image
-from fpdf import FPDF
+from fpdf2 import FPDF as PDF
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -349,7 +349,7 @@ def create_pdf_report(df, overall_summary, plot_data_for_report):
     for plot_info in plot_data_for_report:
         pdf.add_image_and_summary(plot_info['path'], plot_info['summary'])
 
-    return pdf.output(dest='S').encode('latin1')
+    return pdf.output(dest='S')
 
 def display_dataset_overview(df):
     """Display professional dataset overview with metrics cards (fixed responsive layout)."""

@@ -701,7 +701,7 @@ def eda_section(df):
                     )
                     st.download_button(
                         label="📥 Download PDF Report",
-                        data=pdf_output,
+                        data=pdf_output.encode("latin1"),
                         file_name="professional_eda_report.pdf",
                         mime="application/pdf"
                     )

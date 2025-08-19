@@ -5,7 +5,7 @@ import pandas as pd
 import os
 import google.generativeai as genai
 from PIL import Image
-from fpdf2 import FPDF as PDF
+from fpdf import FPDF
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
